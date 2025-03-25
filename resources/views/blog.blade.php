@@ -11,6 +11,6 @@
 <a href="/about">about</a>
 <a href="/contact">contact</a>
     <h1>halaman blog</h1>
-    <h3>owner :{{$nama}} </h3>
+    <h3>1</h3>
 </body>
 </html>

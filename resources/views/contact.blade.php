@@ -7,8 +7,10 @@
 </head>
 <body>
 <a href="/">home</a>
-<a href="/about">contact</a>
-    <h1>halaman about</h1>
-    <h3>owner :{{$nama}} </h3>
+<a href="/blog">blog</a>
+<a href="/about">about</a>
+<a href="/contact">contact</a>
+    <h1>halaman contact</h1>
+    <h3>1 </h3>
 </body>
 </html>
