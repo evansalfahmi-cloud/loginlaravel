@@ -1,2 +1,3 @@
 <x-layout>
-  <h3>Ini halaman Home</h3></x-layout>
+    <p>Selamat datang di halaman Home.</p>
+</x-layout>
