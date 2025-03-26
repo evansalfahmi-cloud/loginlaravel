@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>home</title>
+    @vite(['resources/sass/app.scss','resources/js/app.js'])
 </head>
 <body>
-    <a href="/">home</a>
-    <a href="/blog">blog</a>
-    <a href="/about">about</a>
-    <a href="/contact">contact</a>
 
-    <h1>halaman HOME</h1>   
+<x-navbar />
+
+<div class="container mt-4">
+    <h1>Welcome to My Website</h1>
+</div>
 </body>
 </html>
