@@ -6,11 +6,11 @@
     <title>halaman about</title>
 </head>
 <body>
-<a href="/">home</a>
-<a href="/blog">blog</a>
-<a href="/about">about</a>
-<a href="/contact">contact</a>
-    <h1>halaman about</h1>
-    <h3>owner :{{$nama}} </h3>
+<x-navbar />
+<x-header title="About" />
+
+<div class="container mt-4">
+    <h1>Halaman About</h1>
+</div>
 </body>
 </html>
