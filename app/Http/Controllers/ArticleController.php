@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Article; // Import model Artikel
+use App\Models\Article;
+use Illuminate\Support\Facades\Auth;
 
 class ArticleController extends Controller
 {
@@ -37,8 +38,8 @@ class ArticleController extends Controller
 
         // Simpan artikel
         Article::create([
-            'user_id' => 1, // Gantilah dengan user yang sedang login (gunakan Auth::id())
-            'category_id' => 1, // Sesuaikan dengan kategori yang tersedia
+            'user_id' => Auth::id(), // Menggunakan user yang sedang login
+            'category_id' => 1, // Gantilah sesuai kategori yang ada
             'title' => $request->title,
             'content' => $request->content,
             'image' => $imagePath,
@@ -53,5 +54,48 @@ class ArticleController extends Controller
     {
         $article = Article::findOrFail($id);
         return view('blog_show', compact('article')); // Buat file 'blog_show.blade.php' di resources/views/
+    }
+
+    // Menampilkan halaman edit artikel
+    public function edit($id)
+    {
+        $article = Article::findOrFail($id);
+        return view('blog_edit', compact('article')); // Buat file 'blog_edit.blade.php'
+    }
+
+    // Memperbarui artikel yang telah ada
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
+        $article = Article::findOrFail($id);
+
+        // Update gambar jika ada
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('images', 'public');
+        } else {
+            $imagePath = $article->image;
+        }
+
+        $article->update([
+            'title' => $request->title,
+            'content' => $request->content,
+            'image' => $imagePath,
+        ]);
+
+        return redirect()->route('blog.index')->with('success', 'Artikel berhasil diperbarui!');
+    }
+
+    // Menghapus artikel
+    public function destroy($id)
+    {
+        $article = Article::findOrFail($id);
+        $article->delete();
+
+        return redirect()->route('blog.index')->with('success', 'Artikel berhasil dihapus!');
     }
 }
