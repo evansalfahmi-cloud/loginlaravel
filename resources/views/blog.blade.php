@@ -1,25 +1,28 @@
 <x-layout>
     <div class="container mt-4">
-        <h1 class="text-center mb-4">Blog</h1>
+        <h1 class="text-center mb-4">Selamat Datang di Halaman Blog</h1>
+
+        <a href="{{ route('blog.create') }}" class="btn btn-success mb-3">Tambah Artikel</a>
 
         <div class="row">
-            @foreach($articles as $article)
-                <div class="col-md-6">
-                    <article class="mb-4 p-4 border rounded shadow-sm bg-light">
-                        @if ($article->image)
-                            <img src="{{ asset('storage/' . $article->image) }}" class="img-fluid mb-3 rounded" alt="{{ $article->title }}">
+            @foreach ($articles as $article)
+                <div class="col-lg-4 mb-4">
+                    <div class="card">
+                        @if($article->image)
+                            <img src="{{ asset('storage/' . $article->image) }}" class="card-img-top" alt="Artikel Image">
                         @endif
-                        <h2 class="text-primary">{{ $article->title }}</h2>
-                        <div class="text-muted mb-2">
-                            <a href="#" class="text-decoration-none fw-bold">{{ $article->user->name }}</a> | {{ date('d M Y', strtotime($article->created_at)) }}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $article->title }}</h5>
+                            <p class="card-text">{{ Str::limit($article->content, 100, '...') }}</p>
+                            <a href="{{ route('blog.show', $article->id) }}" class="btn btn-primary">Read More</a>
                         </div>
-                        <p class="text-justify">
-                            {{ Str::limit($article->content, 150, '...') }}
-                        </p>
-                        <a href="{{ route('blog.show', $article->id) }}" class="btn btn-primary">Read More &raquo;</a>
-                    </article>
+                    </div>
                 </div>
             @endforeach
+        </div>
+
+        <div class="d-flex justify-content-center mt-3">
+            {{ $articles->links() }}
         </div>
     </div>
 </x-layout>
